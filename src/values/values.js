@@ -1,12 +1,15 @@
 import { 
 	AccountCircleOutlined, 
+	Brightness4Outlined, 
 	GraphicEqOutlined, 
 	HouseOutlined, 
 	NotificationImportantOutlined, 
-	PeopleOutline } from "@material-ui/icons"
+	PeopleOutline, 
+	SettingsOutlined} from "@material-ui/icons"
 
 export const accents = {
 	light : {
+		name: 'light',
 		primary: '#FFFFFF',
 		darker: '#f4f5f8',
 		secondary: '#bdcadb',
@@ -18,6 +21,7 @@ export const accents = {
 		// success: '',
 	},
 	dark : {
+		name: 'dark',
 		primary: '#151E28',
 		darker: '#000000',
 		secondary: '#476385',
@@ -29,6 +33,7 @@ export const accents = {
 		// success: '',
 	},
 	accent1 : {
+		name: 'accent1',
 		primary: '#FFFFFF',
 		darker: '#fbefef',
 		secondary: '#B5838D',
@@ -36,10 +41,11 @@ export const accents = {
 		textColor: '#DE7C80',
 		textColorSecondary: '#8B949E',
 		hoverInfo: '#F3CECF',
-		hoverInfoText: '#FFFFFF',
+		hoverInfoText: '#DE7C80',
 		// success: '',
 	},
 	accent2 : {
+		name: 'accent2',
 		primary: '#FFFFFF',
 		darker: '#CAF0F8',
 		secondary: '#0096C7',
@@ -59,4 +65,9 @@ export const menuItems = [
 	{name: 'Notification', icon: <NotificationImportantOutlined />},
 	{name: 'another useless link', icon: <GraphicEqOutlined />},
 	{name: 'Friends', icon: <PeopleOutline	 />},
+]
+
+export const bottomMenuItems = [
+	{name: 'Settings', icon: <SettingsOutlined />},
+	{name: 'Dark Mode', icon: <Brightness4Outlined />, setDarkMode: true},
 ]

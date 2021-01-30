@@ -20,12 +20,13 @@ const Accent = (props) => {
 		localStorage.setItem('colorAccent', JSON.stringify({
 			accent: accent
 		}));
-		props.onClick(accent);
+		props.setColors(accent);
 	}
 
 	return (
 		<div className={classes.Accent} >
 			<button onClick={accentHandler} >Set color</button>
+			<Color text='primary' accent={accent.primary} />
 			<Color text='primary' accent={accent.primary} />
 			<Color text='darker' accent={accent.darker} />
 			<Color text='secondary' accent={accent.secondary} />
@@ -56,12 +57,12 @@ const Layout = (props) => {
 				backgroundColor: colors.primary,
 				color: colors.textColor
 			}} >
-			<SideBar colors={colors} />
+			<SideBar colors={colors} setColors={setColors}/>
 			<div className={classes.Main} >
-				<Accent onClick={setColors} accent={accents.light} />
-				<Accent onClick={setColors} accent={accents.dark} />
-				<Accent onClick={setColors} accent={accents.accent1} />
-				<Accent onClick={setColors} accent={accents.accent2	} />
+				<Accent setColors={setColors} accent={accents.light} />
+				<Accent setColors={setColors} accent={accents.dark} />
+				<Accent setColors={setColors} accent={accents.accent1} />
+				<Accent setColors={setColors} accent={accents.accent2	} />
 			</div>
 		</div>
 	)
