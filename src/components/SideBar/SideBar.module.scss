@@ -1,0 +1,17 @@
+.SideBar {
+	width: 60px;
+	border-right: solid 1px;
+	display: flex;
+
+	.SideBarMain {
+		width: 100%;
+		padding: 10px 10px;
+		display: flex;
+		flex-direction: column;
+		height: calc(100% - 70px);
+		transition: all .2s ease;
+		box-sizing: border-box;
+		width: 100%;
+		// background-color: red;
+	}
+}
