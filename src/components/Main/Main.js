@@ -52,6 +52,7 @@ const Main = (props) => {
 			dispatch({type: 'SET_ACCENT', payload: token.accent});
 		else
 			dispatch({type: 'SET_ACCENT', payload: accents.light});
+		
 	}, []);
 
 	return (

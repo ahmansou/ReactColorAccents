@@ -5,8 +5,15 @@ import { Context } from '../../../hooks/Store';
 
 export const ColorSetters = (props) => {
 	const [state, dispatch] = useContext(Context);
-	const [backgroundColor, setBackgroundColor] = useState(undefined);
+	const [hovered, setHovered] = useState(false);
 	const accent = props.accent;
+
+
+	let itemStyle = {
+		color: props.accent.textColor,
+		backgroundColor: hovered ? state.accent.darker : null
+	}
+
 
 	const accentHandler = () => {
 		localStorage.setItem('colorAccent', JSON.stringify({
@@ -17,11 +24,9 @@ export const ColorSetters = (props) => {
 
 	return (
 		<div className={[classes.SideBarItem, classes.ColorSetters].join(' ')} 
-		onMouseEnter={() => setBackgroundColor(state.accent.darker)}
-		onMouseLeave={() => setBackgroundColor(undefined)}
-		style={{
-			backgroundColor: backgroundColor, 
-			color: props.accent.textColor}}
+		onMouseEnter={() => setHovered(true)}
+		onMouseLeave={() => setHovered(false)}
+		style={itemStyle}
 		onClick={accentHandler} >
 			<div className={classes.HoverInfo}
 			style={{ backgroundColor: state.accent.hoverInfo, 
@@ -35,9 +40,13 @@ export const ColorSetters = (props) => {
 }
 
 const SideBarItem = (props) => {
-	
-	const [backgroundColor, setBackgroundColor] = useState(undefined);
 	const [state, dispatch] = useContext(Context);
+	const [hovered, setHovered] = useState(false);
+
+	let itemStyle = {
+		color: state.accent.textColor,
+		backgroundColor: hovered ? state.accent.darker : null
+	}
 
 
 	const accentHandler = () => {
@@ -55,12 +64,10 @@ const SideBarItem = (props) => {
 	return (
 		
 		<div className={classes.SideBarItem}
-			onMouseEnter={() => setBackgroundColor(state.accent.darker)}
-			onMouseLeave={() => setBackgroundColor(undefined)}
-			onClick={props.item.setDarkMode ? accentHandler : null}
-			style={{
-				backgroundColor: backgroundColor,
-				color: state.accent.textColor}} >
+			onMouseEnter={() => setHovered(true)}
+			onMouseLeave={() => setHovered(false)}
+			style={itemStyle}
+			onClick={props.item.setDarkMode ? accentHandler : null} >
 			<div className={classes.HoverInfo}
 			style={{ backgroundColor: state.accent.hoverInfo, 
 				color: state.accent.hoverInfoText }} >
