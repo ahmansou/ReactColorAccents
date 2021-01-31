@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import classes from './SideBarItem.module.scss';
 import { accents } from '../../../values/values';
+import { Context } from '../../../hooks/Store';
 
 export const ColorSetters = (props) => {
+	const [state, dispatch] = useContext(Context);
 	const [backgroundColor, setBackgroundColor] = useState(undefined);
 	const accent = props.accent;
 
@@ -10,19 +12,21 @@ export const ColorSetters = (props) => {
 		localStorage.setItem('colorAccent', JSON.stringify({
 			accent: accent
 		}));
-		props.setColors(accent);
+		dispatch({type: 'SET_ACCENT', payload: accent});
 	}
 
 	return (
 		<div className={[classes.SideBarItem, classes.ColorSetters].join(' ')} 
-		onMouseEnter={() => setBackgroundColor(props.colors.darker)}
+		onMouseEnter={() => setBackgroundColor(state.accent.darker)}
 		onMouseLeave={() => setBackgroundColor(undefined)}
-		style={{backgroundColor: backgroundColor, color: props.accent.textColor}}
+		style={{
+			backgroundColor: backgroundColor, 
+			color: props.accent.textColor}}
 		onClick={accentHandler} >
 			<div className={classes.HoverInfo}
-			style={{ backgroundColor: props.colors.hoverInfo, 
-				color: props.colors.hoverInfoText }} >
-				<div style={{borderRightColor: props.colors.hoverInfo}} ></div>
+			style={{ backgroundColor: state.accent.hoverInfo, 
+				color: state.accent.hoverInfoText }} >
+				<div style={{borderRightColor: state.accent.hoverInfo}} ></div>
 				{accent.name}
 			</div>
 			{props.children}
@@ -32,33 +36,35 @@ export const ColorSetters = (props) => {
 
 const SideBarItem = (props) => {
 	
-	const [backgroundColor, setBackgroundColor] = useState(undefined)
+	const [backgroundColor, setBackgroundColor] = useState(undefined);
+	const [state, dispatch] = useContext(Context);
 
 
 	const accentHandler = () => {
 		let accent;
-		if (props.colors.name === 'dark')
+		if (state.accent.name === 'dark')
 			accent = accents.light;
 		else
 			accent = accents.dark;
 		localStorage.setItem('colorAccent', JSON.stringify({
 			accent: accent
 		}));
-		props.setColors(accent);
+		dispatch({type: 'SET_ACCENT', payload: accent});
 	}
 
 	return (
 		
 		<div className={classes.SideBarItem}
-			onMouseEnter={() => setBackgroundColor( props.colors.darker)}
+			onMouseEnter={() => setBackgroundColor(state.accent.darker)}
 			onMouseLeave={() => setBackgroundColor(undefined)}
 			onClick={props.item.setDarkMode ? accentHandler : null}
-			style={{backgroundColor: backgroundColor}}
-		>
+			style={{
+				backgroundColor: backgroundColor,
+				color: state.accent.textColor}} >
 			<div className={classes.HoverInfo}
-			style={{ backgroundColor: props.colors.hoverInfo, 
-				color: props.colors.hoverInfoText }} >
-				<div style={{borderRightColor: props.colors.hoverInfo}} ></div>
+			style={{ backgroundColor: state.accent.hoverInfo, 
+				color: state.accent.hoverInfoText }} >
+				<div style={{borderRightColor: state.accent.hoverInfo}} ></div>
 				{props.item.name}
 			</div>
 			{props.item.icon}

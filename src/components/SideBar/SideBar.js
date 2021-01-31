@@ -3,34 +3,32 @@ import classes from './SideBar.module.scss';
 import SideBarItem, {ColorSetters} from './SideBarItem/SideBarItem';
 import { accents } from '../../values/values';
 import { ColorLensOutlined } from '@material-ui/icons';
+import { useContext } from 'react';
+import { Context } from '../../hooks/Store';
 
 
 const SideBar = (props) => {
+	const [state, dispatch] = useContext(Context);
 
 	return (
 		<div className={classes.SideBar}
 			style={{
-				backgroundColor: props.colors.primary,
-				borderColor: props.colors.outlines
+				backgroundColor: state.accent.primary,
+				borderColor: state.accent.outlines
 			}} >
 			<div className={classes.SideBarMain}>
-			{
-				menuItems && menuItems.map((item, key) => (
-					<SideBarItem item={item} colors={props.colors} />
-				))
-			}
+			{menuItems && menuItems.map((item, key) => (
+				<SideBarItem key={key} item={item} colors={state.accent} />
+			))}
 			</div>
 			<div className={classes.SideBarBottom}>
-			{
-				bottomMenuItems && bottomMenuItems.map((item, key) => (
-					<SideBarItem item={item} colors={props.colors} setColors={props.setColors}/>
-				))
-			}
-			{/* <ColorSetters colors={accents.light} setColors={props.setColors}/> */}
-			<ColorSetters colors={props.colors} accent={accents.accent1} setColors={props.setColors}>
+			{bottomMenuItems && bottomMenuItems.map((item, key) => (
+				<SideBarItem key={key} item={item} colors={state.accent} />
+			))}
+			<ColorSetters colors={state.accent} accent={accents.accent1} >
 				<ColorLensOutlined />
 			</ColorSetters>
-			<ColorSetters colors={props.colors} accent={accents.accent2} setColors={props.setColors}>
+			<ColorSetters colors={state.accent} accent={accents.accent2} >
 				<ColorLensOutlined />
 			</ColorSetters>
 			</div>
